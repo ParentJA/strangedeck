@@ -4,89 +4,124 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Strangedeck | Home</title>
+	<title>Strange Deck</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/static/strangedeck/css/flatly.min.css" rel="stylesheet" media="screen">
+	<link href="/static/strangedeck/css/magic.min.css" rel="stylesheet" media="screen">
 	<link href="/static/ninetynine/css/styles.css" rel="stylesheet" media="screen">
+	<link href="/static/ninetynine/css/deck.css" rel="stylesheet" media="screen">
+
+	<style>
+		.magictime.slideDownRetourn {
+			-webkit-animation-duration: 0.25s;
+			-moz-animation-duration: 0.25s;
+			-o-animation-duration: 0.25s;
+			animation-duration: 0.25s;
+		}
+	</style>
 </head>
 
 <body>
+	<div id="game-over-modal" class="modal fade">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img id="winner-img" class="media-object img-circle" src="">
+					<p id="winner-name">Nina Craig Wins!</p>
+					<button class="btn btn-primary" type="button" data-dismiss="modal">Continue</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle collapsed" 
+						type="button" 
+						data-toggle="collapse" 
+						data-target="#navbar-content">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">STRANGE DECK</a>
+			</div>
+			<div id="navbar-content" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
 	<div class="container">
-		<!-- Start -->
-		<div id="id-start-view" class="col-lg-offset-3 col-lg-6 text-center">
-			<h1>Strangedeck</h1>
-			<button id="id-start-button" class="btn btn-lg btn-default" type="button">Start a new game</button>
-		</div>
+		<div class="row">
+			<div class="col-md-3">
 
-		<!-- Play -->
-		<div id="id-play-view" class="col-lg-offset-3 col-lg-6 text-center hide">
-			<h1>Strangedeck</h1>
-			<label>Enter your name</label>
-			<input id="id-name-input" class="form-control" type="text">
-			<button id="id-play-button" class="btn btn-lg btn-default" type="button" disabled>Play</button>
-		</div>
-
-		<!-- Game -->
-		<div id="id-game-view" class="col-lg-12 hide">
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">Game</h4>
+				<!-- Computer -->
+				<div id="computer-panel" 
+					 class="panel panel-default player-panel" 
+					 data-player-name="Randy Adams">
+					<div class="panel-body">
+						<div class="media">
+							<div class="media-body">
+								<h4 class="media-heading">Randy Adams</h4>
+								Wins: 0
+							</div>
+							<div class="media-right">
+								<a href="#">
+									<img class="media-object img-circle" 
+										 src="/static/ninetynine/img/randy_adams.jpg" 
+										 width="64" 
+										 height="64">
+								</a>
+							</div>
 						</div>
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Player</th>
-									<th>Wins</th>
-								</tr>
-							</thead>
-						</table>
+						<div class="hand"></div>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<!-- Computer -->
-					<div id="id-computer-media" class="media" style="width: 100%;">
-						<a class="media-left" href="#">
-							<div class="media-object" style="width: 100px; height: 100px; background: #CCC;"></div>
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">Computer</h4>
+			</div>
+			<div class="col-md-6">
+
+				<!-- Piles -->
+				<div id="piles">
+					<div id="draw-pile" class="card card-back card-blue"></div>
+					<div id="score-display">
+						<div>
+							<p>Score</p>
+							<p id="score-text">0</p>
 						</div>
 					</div>
-
-					<!-- Player -->
-					<div id="id-player-media" class="media" style="width: 100%;">
-						<a class="media-left" href="#">
-							<div class="media-object" style="width: 100px; height: 100px; background: #CCC;"></div>
-						</a>
-						<div class="media-body">
-							<h4 class="media-heading">Player</h4>
-						</div>
+					<div id="play-pile" class="card">
+						<div id="bottom-card" class="card"></div>
+						<div id="top-card" class="card"></div>
 					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">Score</h4>
+			</div>
+			<div class="col-md-3">
+
+				<!-- Player -->
+				<div id="player-panel" 
+					 class="panel panel-default player-panel" 
+					 data-player-name="Nina Craig">
+					<div class="panel-body">
+						<div class="media">
+							<div class="media-left">
+								<a href="#">
+									<img class="media-object img-circle" 
+										 src="/static/ninetynine/img/nina_craig.jpg" 
+										 width="64" 
+										 height="64">
+								</a>
+							</div>
+							<div class="media-body" style="text-align: right;">
+								<h4 class="media-heading">Nina Craig</h4>
+								Wins: 0
+							</div>
 						</div>
-						<div class="panel-body">
-							0
-						</div>
-					</div>
-					<div id="id-hand-panel" class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">Hand</h4>
-						</div>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Card</th>
-									<th>Value</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
+						<div class="hand"></div>
 					</div>
 				</div>
 			</div>
@@ -95,7 +130,183 @@
 
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="/static/ninetynine/js/scripts.js"></script>
+	<script src="/static/ninetynine/js/deck.js"></script>
+	<script src="/static/ninetynine/js/game.js"></script>
+	<script>
+		$(function() {
+			var game = createGame();
+
+			/**
+			 * Creates a new game.
+			 */
+			function createGame() {
+				console.log("Create game...");
+
+				var game = new Game();
+				game.addPlayer(new Player("Randy Adams", true));
+				game.addPlayer(new Player("Nina Craig", false));
+
+				return game;
+			}
+
+			/**
+			 * Resets and starts a new game.
+			 */
+			function restartGame() {
+				console.log("Start game...");
+
+				game.reset(Game.getStandardRules());
+
+				updateScore();
+				updatePlayPile();
+
+				for (var i = 0, numPlayers = game.numPlayers(); i < numPlayers; i++) {
+					var player = game.getPlayer(i);
+
+					updatePlayerHand(player);
+				}
+
+				updateTurn(game.getDealer());
+			}
+
+			/**
+			 * Ends a game.
+			 */
+			function endGame(winner) {
+				console.log("End game " + winner.name() + "...");
+
+				//TODO: Handle images, maybe through CSS...
+				//$("#winner-img").attr("src");
+				$("#winner-name").text(winner.name() + " wins!");
+				$("#game-over-modal").modal("show");
+			}
+
+			function updatePlayerHand(player) {
+				console.log("Player hand updated: " + player.name() + "...");
+
+				var $hand = $(".player-panel[data-player-name='" + player.name() + "']").find(".hand").empty();
+				
+				var html = [];
+
+				for (var i = 0, numCards = player.handSize(); i < numCards; i++) {
+					var card = player.getCardInHand(i);
+					var cardClass = "card card-front card-" + card.toString();
+
+					if (player.isComputer()) {
+						cardClass = "card card-back card-blue";
+					}
+
+					html.push(
+						"<div ", 
+						"class='" + cardClass + "' ",
+						"data-index='", i, "' ",
+						"data-face='", card.face(), "' ",
+						"data-suit='", card.suit(), "'>", 
+						"</div>"
+					);
+				}
+
+				$hand.html(html.join(""));
+			}
+
+			function updateTurn(player) {
+				console.log("Turn updated: " + player.name() + "...");
+
+				//Reset all panels...
+				$(".player-panel")
+					.removeClass("panel-primary")
+					.data("isCurrent", false);
+
+				//Set current player panel...
+				$(".player-panel[data-player-name='" + player.name() + "']")
+					.addClass("panel-primary")
+					.data("isCurrent", true);
+
+				var currentPlayer = game.getCurrentPlayer();
+
+				if (game.hasLegalPlay(currentPlayer)) {
+					if (currentPlayer.isComputer()) {
+						var card = game.getBestPlay(currentPlayer);
+						var face = card.face();
+						var suit = card.suit();
+
+						setTimeout(function() {
+							$(".card[data-face='" + face + "'][data-suit='" + suit + "']").trigger("click");
+						}, 500);
+					}
+				}
+				else {
+					console.log("Current player (" + currentPlayer.name() + ") does not have a legal move...");
+
+					endGame(game.getNextPlayer());
+				}
+			}
+
+			function updateScore() {
+				console.log("Score updated: " + game.score() + "...");
+
+				$("#score-text").text(game.score());
+			}
+
+			function updatePlayPile(cardString) {
+				console.log("Play pile updated: " + cardString + "...");
+
+				var $topCard = $("#top-card");
+				var $bottomCard = $("#bottom-card");
+
+				if (!cardString) {
+					$topCard.attr("class", "card");
+					$bottomCard.attr("class", "card");
+				}
+				else {
+					var cardClass = "card-" + cardString;
+
+					if ($topCard.data("cardClass")) {
+						$bottomCard.attr("class", "card card-front").addClass($topCard.data("cardClass"));
+					}
+
+					$topCard
+						.attr("class", "card card-front magictime slideDownRetourn")
+						.addClass(cardClass).data("cardClass", cardClass)
+						.one("animationend webkitAnimationEnd", function() {
+							$(this).removeClass("magictime slideDownRetourn");
+						});
+				}
+			}
+			
+			restartGame();
+
+			$("body").on("click", ".card", function() {
+				var $card = $(this);
+
+				if ($card.parents(".player-panel").eq(0).data("isCurrent")) {
+					var index = $card.data("index");
+					var face = $card.data("face");
+					var suit = $card.data("suit");
+					var currentPlayer = game.getCurrentPlayer();
+
+					console.log("Current player (" + currentPlayer.name() + ") plays " + face + suit);
+
+					var isGameOver = game.playCard(currentPlayer, index);
+
+					if (isGameOver) {
+						endGame(currentPlayer);
+
+						return;
+					}
+
+					updateScore(game);
+					updatePlayPile(face + suit);
+					updatePlayerHand(currentPlayer);
+					updateTurn(game.getCurrentPlayer());
+				}
+			});
+
+			$("#game-over-modal").on("hidden.bs.modal", function() {
+				restartGame();
+			});
+		});
+	</script>
 </body>
 
 </html>

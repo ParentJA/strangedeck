@@ -1,0 +1,183 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Tests</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.16.0.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+    <script src="../deck.js"></script>
+    <script>
+        <!-- Module: Card -->
+        QUnit.module("card", {
+            beforeEach: function() {
+                this.card = new Card("A", "S");
+            }
+        });
+
+        QUnit.test("test face", function(assert) {
+            assert.equal(this.card.face(), "A");
+        });
+
+        QUnit.test("test suit", function(assert) {
+            assert.equal(this.card.suit(), "S");
+        });
+
+        QUnit.test("test toString", function(assert) {
+            assert.equal(this.card.toString(), "AS");
+        });
+
+        <!-- Module: Pile -->
+        QUnit.module("pile", {
+            beforeEach: function() {
+                this.pile = new Pile([new Card("A", "S"), new Card("A", "D")]);
+            }
+        });
+
+        QUnit.test("test size", function(assert) {
+            assert.equal(this.pile.size(), 2);
+        });
+
+        QUnit.test("test isEmpty", function(assert) {
+            assert.ok(!this.pile.isEmpty());
+        });
+
+        QUnit.test("test getCard", function(assert) {
+            assert.equal(this.pile.getCard(0).toString(), "AS");
+            assert.equal(this.pile.getCard(1).toString(), "AD");
+            assert.raises(this.pile.getCard(2))
+        });
+
+        QUnit.test("test getFirstCard", function(assert) {
+            assert.equal(this.pile.getFirstCard().toString(), "AS");
+        });
+
+        QUnit.test("test getLastCard", function(assert) {
+            assert.equal(this.pile.getLastCard().toString(), "AD");
+        });
+
+        QUnit.test("test setCard", function(assert) {
+            this.pile.setCard(0, new Card("J", "C"));
+
+            assert.equal(this.pile.getCard(0).toString(), "JC");
+        });
+
+        QUnit.test("test addCard", function(assert) {
+            //Add in front...
+            this.pile.addCard(0, new Card("2", "H"));
+
+            assert.equal(this.pile.getCard(0).toString(), "2H");
+            assert.equal(this.pile.getCard(1).toString(), "AS");
+
+            //Add in middle...
+            this.pile.addCard(1, new Card("2", "S"));
+
+            assert.equal(this.pile.getCard(0).toString(), "2H");
+            assert.equal(this.pile.getCard(1).toString(), "2S");
+            assert.equal(this.pile.getCard(2).toString(), "AS");
+
+            //Add in back...
+            this.pile.addCard(5, new Card("Q", "H"));
+
+            assert.equal(this.pile.getCard(4).toString(), "QH");
+        });
+
+        QUnit.test("test addFirstCard", function(assert) {
+            this.pile.addFirstCard(new Card("J", "S"));
+
+            assert.equal(this.pile.getCard(0).toString(), "JS");
+        });
+
+        QUnit.test("test addLastCard", function(assert) {
+            this.pile.addLastCard(new Card("J", "S"));
+
+            assert.equal(this.pile.getCard(2).toString(), "JS");
+        });
+
+        QUnit.test("test removeCard", function(assert) {
+            assert.equal(this.pile.removeCard(0).toString(), "AS");
+            assert.equal(this.pile.size(), 1);
+        });
+
+        QUnit.test("test removeFirstCard", function(assert) {
+            assert.equal(this.pile.removeFirstCard().toString(), "AS");
+            assert.equal(this.pile.size(), 1);
+        });
+
+        QUnit.test("test removeLastCard", function(assert) {
+            assert.equal(this.pile.removeLastCard().toString(), "AD");
+            assert.equal(this.pile.size(), 1);
+        });
+
+        QUnit.test("test findCard", function(assert) {
+            var card = this.pile.findCard("J", "D");
+
+            assert.equal(card, null);
+
+            card = this.pile.findCard("A", "S");
+
+            assert.equal(card.face(), "A");
+            assert.equal(card.suit(), "S");
+        });
+
+        QUnit.test("test shuffle", function(assert) {
+            this.pile.addLastCard(new Card("K", "S"));
+            this.pile.addLastCard(new Card("K", "H"));
+            this.pile.addLastCard(new Card("K", "C"));
+            this.pile.addLastCard(new Card("K", "D"));
+
+            var order1 = this.pile.toString();
+
+            this.pile.shuffle();
+
+            var order2 = this.pile.toString();
+
+            assert.notEqual(order1, order2);
+        });
+
+        QUnit.test("test toString", function(assert) {
+            assert.equal(this.pile.toString(), "AS,AD");
+        });
+
+        <!-- Module: Deck -->
+        QUnit.module("deck");
+
+        QUnit.test("test createStandardDeck", function(assert) {
+            var deck = Deck.createStandardDeck();
+
+            assert.equal(deck.size(), 52);
+
+            var faceMap = {};
+            var numFaces = 0;
+
+            for (var i = 0, numCards = deck.size(); i < numCards; i++) {
+                var card = deck.getCard(i);
+                var face = card.face();
+                var suit = card.suit();
+
+                if (!faceMap.hasOwnProperty(face)) {
+                    faceMap[face] = [];
+                    numFaces++;
+                }
+
+                faceMap[face].push(suit);
+            }
+
+            assert.equal(numFaces, 13);
+
+            $.each(Object.keys(faceMap), function(index, face) {
+                assert.equal(faceMap[face].length, 4);
+            });
+        });
+    </script>
+</body>
+
+</html>

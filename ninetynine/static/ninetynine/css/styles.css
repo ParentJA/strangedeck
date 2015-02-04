@@ -1,0 +1,97 @@
+body {
+	padding-top: 100px;
+}
+
+td {
+	text-align: center;
+}
+
+.player-panel .media-body {
+	width: 100%;
+}
+
+.hand {
+	height: 195px;
+	margin-top: 15px;
+	position: relative;
+}
+
+.hand > .card {
+	position: absolute;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.hand > .card:nth-child(1) {
+	left: 35px;
+	z-index: 2;
+}
+
+.hand > .card:nth-child(2) {
+	left: 70px;
+	z-index: 3;
+}
+
+#piles {
+	margin: 66px auto;
+	text-align: center;
+}
+
+#piles > div {
+	margin: 0 auto;
+	text-align: center;
+	display: inline-block;
+}
+
+#score-display {
+	width: 140px;
+	height: 190px;
+	position: relative;
+}
+
+#score-display > div {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 140px;
+	height: 48px;
+	margin: auto auto;
+	position: absolute;
+}
+
+#score-display > div > p {
+	height: 24px;
+	margin: 0;
+	font-size: 20px;
+	line-height: 24px;
+	text-align: center;
+}
+
+#play-pile {
+	position: relative;
+}
+
+#play-pile > #bottom-card {
+	position: absolute;
+}
+
+#play-pile > #top-card {
+	position: absolute;
+}
+
+#game-over-modal .modal-body {
+	text-align: center;
+}
+
+#winner-img {
+	width: 128px;
+	height: 128px;
+	margin: 0 auto;
+	display: block;
+}
+
+#winner-name {
+	margin: 20px auto;
+	font-size: 18px;
+}

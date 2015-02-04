@@ -1,0 +1,236 @@
+.card-back {
+	background-image: url('/static/ninetynine/img/playing_cards_backs.png');
+	background-repeat: no-repeat;
+}
+
+.card-front {
+	background-image: url('/static/ninetynine/img/playing_cards.png');
+	background-repeat: no-repeat;
+}
+
+.card {
+	width: 140px;
+	height: 190px;
+}
+
+/* Backs */
+
+.card-blue {
+	background-position: -280px 0;
+}
+
+/* Clubs */
+
+.card-AC {
+	background-position: -560px -570px;
+}
+
+.card-KC {
+	background-position: -560px -190px;
+}
+
+.card-QC {
+	background-position: -560px 0px;
+}
+
+.card-JC {
+	background-position: -560px -380px;
+}
+
+.card-TC {
+	background-position: -560px -760px;
+}
+
+.card-9C {
+	background-position: -560px -950px;
+}
+
+.card-8C {
+	background-position: -560px -1140px;
+}
+
+.card-7C {
+	background-position: -560px -1330px;
+}
+
+.card-6C {
+	background-position: -560px -1520px;
+}
+
+.card-5C {
+	background-position: -560px -1710px;
+}
+
+.card-4C {
+	background-position: -700px 0;
+}
+
+.card-3C {
+	background-position: -700px -190px;
+}
+
+.card-2C {
+	background-position: -280px -1140px;
+}
+
+/* Diamonds */
+
+.card-AD {
+	background-position: -420px 0;
+}
+
+.card-KD {
+	background-position: -280px -1520px;
+}
+
+.card-QD {
+	background-position: -280px -1330px;
+}
+
+.card-JD {
+	background-position: -280px -1710px;
+}
+
+.card-TD {
+	background-position: -420px -190px;
+}
+
+.card-9D {
+	background-position: -420px -380px;
+}
+
+.card-8D {
+	background-position: -420px -570px;
+}
+
+.card-7D {
+	background-position: -420px -760px;
+}
+
+.card-6D {
+	background-position: -420px -950px;
+}
+
+.card-5D {
+	background-position: -420px -1140px;
+}
+
+.card-4D {
+	background-position: -420px -1330px;
+}
+
+.card-3D {
+	background-position: -420px -1520px;
+}
+
+.card-2D {
+	background-position: -420px -1710px;
+}
+
+/* Hearts */
+
+.card-AH {
+	background-position: -140px -1330px;
+}
+
+.card-KH {
+	background-position: -140px -950px;
+}
+
+.card-QH {
+	background-position: -140px -760px;
+}
+
+.card-JH {
+	background-position: -140px -1140px;
+}
+
+.card-TH {
+	background-position: -140px -1520px;
+}
+
+.card-9H {
+	background-position: -140px -1710px;
+}
+
+.card-8H {
+	background-position: -280px 0;
+}
+
+.card-7H {
+	background-position: -280px -190px;
+}
+
+.card-6H {
+	background-position: -280px -380px;
+}
+
+.card-5H {
+	background-position: -280px -570px;
+}
+
+.card-4H {
+	background-position: -280px -760px;
+}
+
+.card-3H {
+	background-position: -280px -950px;
+}
+
+.card-2H {
+	background-position: -700px -380px;
+}
+
+/* Spades */
+
+.card-AS {
+	background-position: 0 -570px;
+}
+
+.card-KS {
+	background-position: 0 -190px;
+}
+
+.card-QS {
+	background-position: 0 0;
+}
+
+.card-JS {
+	background-position: 0 -380px;
+}
+
+.card-TS {
+	background-position: 0 -760px;
+}
+
+.card-9S {
+	background-position: 0 -950px;
+}
+
+.card-8S {
+	background-position: 0 -1140px;
+}
+
+.card-7S {
+	background-position: 0 -1330px;
+}
+
+.card-6S {
+	background-position: 0 -1520px;
+}
+
+.card-5S {
+	background-position: 0 -1710px;
+}
+
+.card-4S {
+	background-position: -140px 0;
+}
+
+.card-3S {
+	background-position: -140px -190px;
+}
+
+.card-2S {
+	background-position: -140px -380px;
+}
