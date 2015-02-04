@@ -10,6 +10,11 @@ td {
 	width: 100%;
 }
 
+.player-panel .panel-image {
+	width: 64px;
+	height: 64px;
+}
+
 .hand {
 	height: 195px;
 	margin-top: 15px;

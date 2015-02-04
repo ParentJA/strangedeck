@@ -1,11 +1,16 @@
-function Player(name, isComputer) {
+function Player(name, photo, isComputer) {
 	this._name = name;
+	this._photo = photo;
 	this._isComputer = isComputer;
 	this._hand = new Hand();
 }
 
 Player.prototype.name = function() {
 	return this._name;
+};
+
+Player.prototype.photo = function() {
+	return this._photo;
 };
 
 Player.prototype.isComputer = function() {
@@ -239,6 +244,10 @@ Game.prototype.hasLegalPlay = function(player) {
 	}
 
 	return false;
+};
+
+Game.prototype.isLegalPlay = function(card) {
+	return (this._score + this.getCardValue(card) <= 99);
 };
 
 Game.prototype.getBestPlay = function(player) {

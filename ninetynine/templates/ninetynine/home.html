@@ -27,7 +27,7 @@
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-body">
-					<img id="winner-img" class="media-object img-circle" src="">
+					<img id="winner-img" class="media-object img-circle modal-image">
 					<p id="winner-name">Nina Craig Wins!</p>
 					<button class="btn btn-primary" type="button" data-dismiss="modal">Continue</button>
 				</div>
@@ -58,24 +58,19 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
 
-				<!-- Computer -->
-				<div id="computer-panel" 
-					 class="panel panel-default player-panel" 
-					 data-player-name="Randy Adams">
+			<!-- Computer -->
+			<div class="col-md-3">
+				<div id="player1-panel" class="panel panel-default player-panel">
 					<div class="panel-body">
 						<div class="media">
 							<div class="media-body">
-								<h4 class="media-heading">Randy Adams</h4>
+								<h4 class="media-heading"></h4>
 								Wins: 0
 							</div>
 							<div class="media-right">
 								<a href="#">
-									<img class="media-object img-circle" 
-										 src="/static/ninetynine/img/randy_adams.jpg" 
-										 width="64" 
-										 height="64">
+									<img class="media-object img-circle panel-image">
 								</a>
 							</div>
 						</div>
@@ -83,9 +78,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
 
-				<!-- Piles -->
+			<!-- Piles -->
+			<div class="col-md-6">
 				<div id="piles">
 					<div id="draw-pile" class="card card-back card-blue"></div>
 					<div id="score-display">
@@ -100,24 +95,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
 
-				<!-- Player -->
-				<div id="player-panel" 
-					 class="panel panel-default player-panel" 
-					 data-player-name="Nina Craig">
+			<!-- Player -->
+			<div class="col-md-3">
+				<div id="player2-panel" class="panel panel-default player-panel">
 					<div class="panel-body">
 						<div class="media">
 							<div class="media-left">
 								<a href="#">
-									<img class="media-object img-circle" 
-										 src="/static/ninetynine/img/nina_craig.jpg" 
-										 width="64" 
-										 height="64">
+									<img class="media-object img-circle panel-image">
 								</a>
 							</div>
 							<div class="media-body" style="text-align: right;">
-								<h4 class="media-heading">Nina Craig</h4>
+								<h4 class="media-heading"></h4>
 								Wins: 0
 							</div>
 						</div>
@@ -136,22 +126,80 @@
 		$(function() {
 			var game = createGame();
 
-			/**
-			 * Creates a new game.
-			 */
+			function getRandomPlayer(isComputer) {
+				var players = [{
+					name: "Austin Spencer",
+					url: "/static/strangedeck/img/austin_spencer.jpg"
+				}, {
+					name: "Krin Alvarez",
+					url: "/static/strangedeck/img/krin_alvarez.jpg"
+				}, {
+					name: "Nina Craig",
+					url: "/static/strangedeck/img/nina_craig.jpg"
+				}, {
+					name: "Randy Adams",
+					url: "/static/strangedeck/img/randy_adams.jpg"
+				}, {
+					name: "Tina Thomas",
+					url: "/static/strangedeck/img/tina_thomas.jpg"
+				}, {
+					name: "Vincent Ellis",
+					url: "/static/strangedeck/img/vincent_ellis.jpg"
+				}];
+
+				var player = players[Math.floor(Math.random() * players.length)];
+
+				return new Player(player.name, player.url, isComputer);
+			}
+
+			function getAnonymousPlayer() {
+				var players = [{
+					name: "Anonymous",
+					url: "/static/strangedeck/img/anonymous_male.jpg"
+				}, {
+					name: "Anonymous",
+					url: "/static/strangedeck/img/anonymous_female.jpg"
+				}];
+
+				var player = players[Math.floor(Math.random() * players.length)];
+
+				return new Player(player.name, player.url, false);
+			}
+
+			function findElementsByData(selector, data) {
+				return $(selector).filter(function() {
+					var $this = $(this), hasData = true;
+
+					$.each(data, function(key, value) {
+						hasData = (hasData && $this.data(key) == value);
+					});
+
+					return hasData;
+				});
+			}
+
+			function initializePlayer(selector, player) {
+				var $panel = $(selector);
+				$panel.find(".media-heading").text(player.name());
+				$panel.find(".panel-image").attr("src", player.photo());
+				$panel.data({
+					playerName: player.name(),
+					isComputer: player.isComputer()
+				});
+
+				return player;
+			}
+
 			function createGame() {
 				console.log("Create game...");
 
 				var game = new Game();
-				game.addPlayer(new Player("Randy Adams", true));
-				game.addPlayer(new Player("Nina Craig", false));
+				game.addPlayer(initializePlayer("#player1-panel", getRandomPlayer(true)));
+				game.addPlayer(initializePlayer("#player2-panel", getAnonymousPlayer()));
 
 				return game;
 			}
 
-			/**
-			 * Resets and starts a new game.
-			 */
 			function restartGame() {
 				console.log("Start game...");
 
@@ -169,14 +217,10 @@
 				updateTurn(game.getDealer());
 			}
 
-			/**
-			 * Ends a game.
-			 */
 			function endGame(winner) {
 				console.log("End game " + winner.name() + "...");
 
-				//TODO: Handle images, maybe through CSS...
-				//$("#winner-img").attr("src");
+				$("#winner-img").attr("src", winner.photo());
 				$("#winner-name").text(winner.name() + " wins!");
 				$("#game-over-modal").modal("show");
 			}
@@ -184,9 +228,9 @@
 			function updatePlayerHand(player) {
 				console.log("Player hand updated: " + player.name() + "...");
 
-				var $hand = $(".player-panel[data-player-name='" + player.name() + "']").find(".hand").empty();
-				
-				var html = [];
+				var $hand = findElementsByData(".player-panel", {
+					playerName: player.name()
+				}).find(".hand").empty();
 
 				for (var i = 0, numCards = player.handSize(); i < numCards; i++) {
 					var card = player.getCardInHand(i);
@@ -196,42 +240,38 @@
 						cardClass = "card card-back card-blue";
 					}
 
-					html.push(
-						"<div ", 
-						"class='" + cardClass + "' ",
-						"data-index='", i, "' ",
-						"data-face='", card.face(), "' ",
-						"data-suit='", card.suit(), "'>", 
-						"</div>"
-					);
+					$("<div></div>").addClass(cardClass).data({
+						index: i,
+						face: card.face(),
+						suit: card.suit()
+					}).appendTo($hand);
 				}
-
-				$hand.html(html.join(""));
 			}
 
 			function updateTurn(player) {
 				console.log("Turn updated: " + player.name() + "...");
 
 				//Reset all panels...
-				$(".player-panel")
-					.removeClass("panel-primary")
-					.data("isCurrent", false);
+				$(".player-panel").removeClass("panel-primary").data("isCurrent", false);
 
 				//Set current player panel...
-				$(".player-panel[data-player-name='" + player.name() + "']")
-					.addClass("panel-primary")
-					.data("isCurrent", true);
+				var panel = findElementsByData(".player-panel", {
+					playerName: player.name()
+				}).addClass("panel-primary").data("isCurrent", true);
+
+				console.log(panel);
 
 				var currentPlayer = game.getCurrentPlayer();
 
 				if (game.hasLegalPlay(currentPlayer)) {
 					if (currentPlayer.isComputer()) {
 						var card = game.getBestPlay(currentPlayer);
-						var face = card.face();
-						var suit = card.suit();
 
 						setTimeout(function() {
-							$(".card[data-face='" + face + "'][data-suit='" + suit + "']").trigger("click");
+							findElementsByData(".card", {
+								face: card.face(), 
+								suit: card.suit()
+							}).trigger("click");
 						}, 500);
 					}
 				}
@@ -280,10 +320,16 @@
 				var $card = $(this);
 
 				if ($card.parents(".player-panel").eq(0).data("isCurrent")) {
+					var currentPlayer = game.getCurrentPlayer();
 					var index = $card.data("index");
+
+					if (!game.isLegalPlay(currentPlayer.getCardInHand(index))) {
+						return;
+					}
+
 					var face = $card.data("face");
 					var suit = $card.data("suit");
-					var currentPlayer = game.getCurrentPlayer();
+					updatePlayPile(face + suit);
 
 					console.log("Current player (" + currentPlayer.name() + ") plays " + face + suit);
 
@@ -296,13 +342,12 @@
 					}
 
 					updateScore(game);
-					updatePlayPile(face + suit);
 					updatePlayerHand(currentPlayer);
 					updateTurn(game.getCurrentPlayer());
 				}
 			});
 
-			$("#game-over-modal").on("hidden.bs.modal", function() {
+			$("#game-over-modal").on("hide.bs.modal", function() {
 				restartGame();
 			});
 		});
