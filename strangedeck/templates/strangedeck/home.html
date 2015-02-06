@@ -1,0 +1,22 @@
+{% extends 'strangedeck/base.html' %}
+
+{% block page-styles %}
+    <style>
+        body {
+            padding-top: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block page-content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Games</h4>
+            </div>
+            <div class="list-group">
+                <a class="list-group-item" href="{% url 'ninetynine:home' %}">Ninety-nine</a>
+            </div>
+        </div>
+    </div>
+{% endblock page-content %}

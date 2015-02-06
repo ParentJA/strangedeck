@@ -1,0 +1,99 @@
+{% extends 'strangedeck/base.html' %}
+
+{% block page-styles %}
+	<link href="/static/strangedeck/css/magic.min.css" rel="stylesheet">
+	<link href="/static/ninetynine/css/styles.css" rel="stylesheet">
+	<link href="/static/ninetynine/css/deck.css" rel="stylesheet">
+
+	<style>
+		.magictime.slideLeftRetourn,
+		.magictime.slideRightRetourn 
+		{
+			-webkit-animation-duration: 0.25s;
+			-moz-animation-duration: 0.25s;
+			-o-animation-duration: 0.25s;
+			animation-duration: 0.25s;
+		}
+	</style>
+{% endblock page-styles %}
+
+{% block page-modals %}
+	<div id="game-over-modal" class="modal fade">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img id="winner-img" class="media-object img-circle modal-image">
+					<p id="winner-name">Nina Craig Wins!</p>
+					<button class="btn btn-primary" type="button" data-dismiss="modal">Continue</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock page-modals %}
+
+{% block page-content %}
+	<div class="container">
+		<!-- Computer -->
+		<div class="col-md-3">
+			<div id="player1-panel" class="panel panel-default player-panel">
+				<div class="panel-body">
+					<div class="media">
+						<div class="media-body">
+							<h4 class="media-heading"></h4>
+							Wins: 0
+						</div>
+						<div class="media-right">
+							<a href="#">
+								<img class="media-object img-circle panel-image">
+							</a>
+						</div>
+					</div>
+					<div class="hand"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Piles -->
+		<div class="col-md-6">
+			<div id="piles">
+				<div id="draw-pile" class="card card-back card-blue"></div>
+				<div id="score-display">
+					<div>
+						<p>Score</p>
+						<p id="score-text">0</p>
+					</div>
+				</div>
+				<div id="play-pile" class="card">
+					<div id="bottom-card" class="card"></div>
+					<div id="top-card" class="card"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Player -->
+		<div class="col-md-3">
+			<div id="player2-panel" class="panel panel-default player-panel">
+				<div class="panel-body">
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object img-circle panel-image">
+							</a>
+						</div>
+						<div class="media-body" style="text-align: right;">
+							<h4 class="media-heading"></h4>
+							Wins: 0
+						</div>
+					</div>
+					<div class="hand"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock page-content %}
+
+{% block page-scripts %}
+	<script src="/static/ninetynine/js/deck.js"></script>
+	<script src="/static/ninetynine/js/game.js"></script>
+	<script src="/static/ninetynine/js/ninetynine.js"></script>
+{% endblock page-scripts %}

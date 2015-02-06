@@ -5,4 +5,8 @@ from django.shortcuts import render
 
 
 def home(request):
-	return render(request, 'ninetynine/home_ng.html')
+    return render(request, 'ninetynine/home.html')
+
+
+def game(request):
+    return render(request, 'ninetynine/game.html')

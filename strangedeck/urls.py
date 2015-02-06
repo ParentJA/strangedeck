@@ -7,7 +7,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = patterns('',
-	url(r'^$', 'ninetynine.views.home', name='home'),
-	url(r'^ninetynine/', include('ninetynine.urls')),
+    url(r'^$', 'strangedeck.views.home', name='home'),
+    url(r'^ninetynine/', include('ninetynine.urls', namespace='ninetynine')),
     url(r'^admin/', include(admin.site.urls)),
 )

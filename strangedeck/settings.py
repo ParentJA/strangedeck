@@ -95,3 +95,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'strangedeck', 'static'),
 )
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'strangedeck', 'templates'),
+)
