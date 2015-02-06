@@ -1,0 +1,51 @@
+{% extends 'strangedeck/base.html' %}
+
+{% block page-styles %}
+    <style>
+        body {
+            padding-top: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block page-content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6">
+                <div class="jumbotron">
+                    <h4>Log in!</h4>
+                    <a href="#" class="btn btn-danger btn-block">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-block">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="#" class="btn btn-info btn-block">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    {% include 'strangedeck/partials/bootstrap_messages.html' %}
+                    <form action="{% url 'home' %}" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <div class="form-group has-error has-feedback">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    <span class="help-block">
+                                        {{ field.errors|join:', ' }}
+                                    </span>
+                                </div>
+                            {% else %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button class="btn btn-primary" type="submit">Log In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock page-content %}
